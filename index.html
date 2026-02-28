@@ -3,380 +3,541 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>欧德凯特 OUDKT - 赛博朋克主页</title>
+    <title>OUDKT - 欧德凯特</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap');
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'Courier New', monospace;
-            background: #0a0e27;
-            color: #00ff41;
-            overflow-x: hidden;
-            position: relative;
+        :root {
+            --primary: #00d9ff;
+            --secondary: #ff006e;
+            --accent: #8338ec;
+            --dark: #0d0221;
+            --darker: #050014;
         }
 
-        /* 赛博朋克网格背景 */
-        .cyber-grid {
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--darker);
+            color: #fff;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* 自定义光标 */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-follower {
+            width: 8px;
+            height: 8px;
+            background: var(--secondary);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.15s ease;
+            box-shadow: 0 0 20px var(--secondary);
+        }
+
+        /* 背景动画 */
+        .bg-animation {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: 
-                linear-gradient(0deg, transparent 24%, rgba(0, 255, 65, .05) 25%, rgba(0, 255, 65, .05) 26%, transparent 27%, transparent 74%, rgba(0, 255, 65, .05) 75%, rgba(0, 255, 65, .05) 76%, transparent 77%, transparent),
-                linear-gradient(90deg, transparent 24%, rgba(0, 255, 65, .05) 25%, rgba(0, 255, 65, .05) 26%, transparent 27%, transparent 74%, rgba(0, 255, 65, .05) 75%, rgba(0, 255, 65, .05) 76%, transparent 77%, transparent);
-            background-size: 50px 50px;
-            animation: gridMove 20s linear infinite;
             z-index: 0;
+            opacity: 0.3;
         }
 
-        @keyframes gridMove {
-            0% { transform: perspective(500px) rotateX(60deg) translateY(0); }
-            100% { transform: perspective(500px) rotateX(60deg) translateY(50px); }
-        }
-
-        /* 扫描线效果 */
-        .scanline {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: rgba(0, 255, 65, 0.8);
-            box-shadow: 0 0 10px rgba(0, 255, 65, 0.8);
-            animation: scan 4s linear infinite;
-            z-index: 999;
-        }
-
-        @keyframes scan {
-            0% { top: 0; }
-            100% { top: 100%; }
-        }
-
-        /* 主容器 */
-        .container {
+        /* Hero 区域 */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             position: relative;
             z-index: 1;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
         }
 
-        /* 头部 */
-        header {
-            text-align: center;
-            padding: 60px 20px;
+        .hero-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(3rem, 10vw, 8rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 0.1em;
+            animation: titleGlow 3s ease-in-out infinite;
             position: relative;
         }
 
-        .logo {
-            font-size: 4em;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 10px;
-            color: #00ff41;
-            text-shadow: 
-                0 0 10px #00ff41,
-                0 0 20px #00ff41,
-                0 0 30px #00ff41,
-                0 0 40px #ff00de,
-                0 0 70px #ff00de,
-                0 0 80px #ff00de,
-                0 0 100px #ff00de;
-            animation: glitch 3s infinite, neon 1.5s ease-in-out infinite alternate;
-        }
-
-        @keyframes glitch {
-            0%, 90%, 100% { transform: translate(0); }
-            92% { transform: translate(-2px, 2px); }
-            94% { transform: translate(2px, -2px); }
-            96% { transform: translate(-2px, -2px); }
-            98% { transform: translate(2px, 2px); }
-        }
-
-        @keyframes neon {
-            from {
-                text-shadow: 
-                    0 0 10px #00ff41,
-                    0 0 20px #00ff41,
-                    0 0 30px #00ff41,
-                    0 0 40px #ff00de,
-                    0 0 70px #ff00de,
-                    0 0 80px #ff00de,
-                    0 0 100px #ff00de;
+        @keyframes titleGlow {
+            0%, 100% {
+                filter: drop-shadow(0 0 20px var(--primary)) drop-shadow(0 0 40px var(--secondary));
             }
-            to {
-                text-shadow: 
-                    0 0 5px #00ff41,
-                    0 0 10px #00ff41,
-                    0 0 15px #00ff41,
-                    0 0 20px #ff00de,
-                    0 0 35px #ff00de,
-                    0 0 40px #ff00de,
-                    0 0 50px #ff00de;
+            50% {
+                filter: drop-shadow(0 0 40px var(--primary)) drop-shadow(0 0 80px var(--secondary));
             }
         }
 
-        .subtitle {
-            font-size: 1.5em;
-            color: #ff00de;
+        .hero-subtitle {
+            font-size: clamp(1rem, 3vw, 2rem);
+            font-weight: 300;
             margin-top: 20px;
-            text-shadow: 0 0 10px #ff00de;
-            animation: flicker 2s infinite;
+            color: rgba(255, 255, 255, 0.7);
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
         }
 
-        @keyframes flicker {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.8; }
+        .scroll-indicator {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 50px;
+            border: 2px solid var(--primary);
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            padding-top: 10px;
         }
 
-        /* 卡片容器 */
-        .cards {
+        .scroll-indicator::before {
+            content: '';
+            width: 4px;
+            height: 10px;
+            background: var(--primary);
+            border-radius: 2px;
+            animation: scrollDown 2s infinite;
+        }
+
+        @keyframes scrollDown {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(20px); opacity: 0; }
+        }
+
+        /* 内容区域 */
+        .content {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 100px 40px;
+        }
+
+        .section {
+            margin-bottom: 150px;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 60px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            animation: lineExpand 1s ease-out;
+        }
+
+        @keyframes lineExpand {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        /* 卡片网格 */
+        .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin: 50px 0;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
         }
 
         .card {
-            background: rgba(10, 14, 39, 0.8);
-            border: 2px solid #00ff41;
-            padding: 30px;
+            background: rgba(13, 2, 33, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            padding: 40px;
             position: relative;
             overflow: hidden;
-            transition: all 0.3s;
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         .card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(0, 255, 65, 0.1), transparent);
-            animation: cardShine 3s infinite;
-        }
-
-        @keyframes cardShine {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 0 40px rgba(0, 255, 65, 0.6);
-            border-color: #ff00de;
-        }
-
-        .card h2 {
-            color: #ff00de;
-            font-size: 1.8em;
-            margin-bottom: 15px;
-            text-shadow: 0 0 10px #ff00de;
-        }
-
-        .card p {
-            line-height: 1.6;
-            color: #00ff41;
-        }
-
-        /* 终端效果 */
-        .terminal {
-            background: rgba(0, 0, 0, 0.9);
-            border: 2px solid #00ff41;
-            padding: 20px;
-            margin: 50px 0;
-            font-family: 'Courier New', monospace;
-            box-shadow: 0 0 30px rgba(0, 255, 65, 0.5);
-        }
-
-        .terminal-header {
-            color: #ff00de;
-            margin-bottom: 10px;
-            font-size: 1.2em;
-        }
-
-        .terminal-line {
-            color: #00ff41;
-            margin: 5px 0;
-            animation: typing 3s steps(40) infinite;
-        }
-
-        .terminal-line::before {
-            content: '> ';
-            color: #ff00de;
-        }
-
-        @keyframes typing {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        /* 粒子效果容器 */
-        #particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-        }
-
-        /* 按钮 */
-        .cyber-button {
-            display: inline-block;
-            padding: 15px 40px;
-            margin: 10px;
-            background: transparent;
-            border: 2px solid #00ff41;
-            color: #00ff41;
-            font-size: 1.2em;
-            text-transform: uppercase;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s;
-            text-decoration: none;
-        }
-
-        .cyber-button::before {
             content: '';
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: rgba(0, 255, 65, 0.3);
-            transition: left 0.3s;
+            background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.1), transparent);
+            transition: left 0.6s;
         }
 
-        .cyber-button:hover::before {
+        .card:hover::before {
             left: 100%;
         }
 
-        .cyber-button:hover {
-            box-shadow: 0 0 20px #00ff41;
-            color: #ff00de;
-            border-color: #ff00de;
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 60px rgba(0, 217, 255, 0.3);
         }
 
-        /* 页脚 */
-        footer {
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .card-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .card-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* 特色区域 */
+        .feature-showcase {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            margin: 100px 0;
+        }
+
+        .feature-visual {
+            width: 100%;
+            height: 500px;
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(255, 0, 110, 0.1));
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-visual::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 217, 255, 0.1) 2px,
+                rgba(0, 217, 255, 0.1) 4px
+            );
+            animation: scanlines 10s linear infinite;
+        }
+
+        @keyframes scanlines {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(50%); }
+        }
+
+        .feature-content h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .feature-content p {
+            font-size: 1.2rem;
+            line-height: 2;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 20px;
+        }
+
+        /* 统计数据 */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin: 100px 0;
+        }
+
+        .stat-item {
             text-align: center;
             padding: 40px;
-            color: #00ff41;
-            border-top: 2px solid #00ff41;
-            margin-top: 50px;
+            background: rgba(13, 2, 33, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            transition: all 0.3s;
+        }
+
+        .stat-item:hover {
+            border-color: var(--secondary);
+            transform: scale(1.05);
+        }
+
+        .stat-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
+
+        /* CTA 按钮 */
+        .cta-section {
+            text-align: center;
+            padding: 100px 40px;
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.05), rgba(255, 0, 110, 0.05));
+            border-top: 1px solid rgba(0, 217, 255, 0.2);
+            border-bottom: 1px solid rgba(0, 217, 255, 0.2);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 20px 60px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: left 0.3s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 217, 255, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 40px;
+            text-align: center;
+            border-top: 1px solid rgba(0, 217, 255, 0.2);
+        }
+
+        footer p {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 1rem;
+            letter-spacing: 0.1em;
         }
 
         /* 响应式 */
         @media (max-width: 768px) {
-            .logo {
-                font-size: 2.5em;
-                letter-spacing: 5px;
+            .feature-showcase {
+                grid-template-columns: 1fr;
             }
-            .cards {
+            .grid {
                 grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <!-- 扫描线 -->
-    <div class="scanline"></div>
-    
-    <!-- 网格背景 -->
-    <div class="cyber-grid"></div>
-    
-    <!-- 粒子背景 -->
-    <canvas id="particles"></canvas>
+    <!-- 自定义光标 -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
 
-    <div class="container">
-        <!-- 头部 -->
-        <header>
-            <h1 class="logo">OUDKT</h1>
-            <p class="subtitle">[ 欧德凯特 - 赛博空间先锋 ]</p>
-        </header>
+    <!-- 背景动画 -->
+    <canvas class="bg-animation" id="bgCanvas"></canvas>
 
-        <!-- 终端介绍 -->
-        <div class="terminal">
-            <div class="terminal-header">SYSTEM_INIT.exe</div>
-            <div class="terminal-line">正在连接赛博空间...</div>
-            <div class="terminal-line">身份验证通过 [OUDKT_VERIFIED]</div>
-            <div class="terminal-line">欢迎来到未来世界</div>
-        </div>
+    <!-- Hero 区域 -->
+    <section class="hero">
+        <h1 class="hero-title">OUDKT</h1>
+        <p class="hero-subtitle">欧德凯特</p>
+        <div class="scroll-indicator"></div>
+    </section>
 
-        <!-- 卡片区域 -->
-        <div class="cards">
-            <div class="card">
-                <h2>[ 关于我们 ]</h2>
-                <p>欧德凯特（OUDKT）是一家专注于前沿科技的创新企业。我们致力于将赛博朋克的美学与尖端技术完美融合，打造属于未来的数字体验。</p>
+    <!-- 内容区域 -->
+    <div class="content">
+        <!-- 关于我们 -->
+        <section class="section">
+            <h2 class="section-title">关于我们</h2>
+            <div class="feature-showcase">
+                <div class="feature-visual"></div>
+                <div class="feature-content">
+                    <h3>未来科技的先行者</h3>
+                    <p>欧德凯特（OUDKT）是一家专注于前沿技术研发与创新的科技公司。我们将人工智能、区块链、量子计算等尖端技术融入产品，为客户提供超越时代的解决方案。</p>
+                    <p>在这个数字化转型的时代，我们不仅是技术的实践者，更是未来的塑造者。</p>
+                </div>
             </div>
+        </section>
 
-            <div class="card">
-                <h2>[ 核心技术 ]</h2>
-                <p>AI 智能算法 | 区块链技术 | 量子计算 | 神经网络接口 | 虚拟现实 | 增强现实 | 全息投影 | 赛博安全防护</p>
+        <!-- 核心能力 -->
+        <section class="section">
+            <h2 class="section-title">核心能力</h2>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-icon">🧠</div>
+                    <h3 class="card-title">人工智能</h3>
+                    <p class="card-text">深度学习、神经网络、自然语言处理，打造智能化的未来体验。</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔗</div>
+                    <h3 class="card-title">区块链技术</h3>
+                    <p class="card-text">去中心化、智能合约、数字资产管理，构建可信的数字世界。</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">⚡</div>
+                    <h3 class="card-title">量子计算</h3>
+                    <p class="card-text">突破传统计算极限，探索量子算法在实际场景中的应用。</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🌐</div>
+                    <h3 class="card-title">元宇宙开发</h3>
+                    <p class="card-text">虚拟现实、增强现实、数字孪生，创造沉浸式的虚拟空间。</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🛡️</div>
+                    <h3 class="card-title">网络安全</h3>
+                    <p class="card-text">零信任架构、威胁情报、安全防护，守护数字资产安全。</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📊</div>
+                    <h3 class="card-title">数据智能</h3>
+                    <p class="card-text">大数据分析、可视化、预测建模，让数据产生价值。</p>
+                </div>
             </div>
+        </section>
 
-            <div class="card">
-                <h2>[ 产品服务 ]</h2>
-                <p>智能助手系统 | 数据可视化平台 | 赛博安全解决方案 | 元宇宙开发 | AI 创作工具 | 未来科技咨询</p>
+        <!-- 数据统计 -->
+        <section class="section">
+            <h2 class="section-title">我们的成就</h2>
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">企业客户</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">1000+</div>
+                    <div class="stat-label">项目交付</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">技术专利</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">99.9%</div>
+                    <div class="stat-label">客户满意度</div>
+                </div>
             </div>
+        </section>
 
-            <div class="card">
-                <h2>[ 企业愿景 ]</h2>
-                <p>连接现实与虚拟，构建人类与 AI 共生的未来世界。在霓虹闪烁的赛博空间中，我们是探索者，也是创造者。</p>
-            </div>
-
-            <div class="card">
-                <h2>[ 团队实力 ]</h2>
-                <p>核心团队由来自全球顶尖科技公司的工程师、设计师和黑客组成。我们不仅懂技术，更懂未来。</p>
-            </div>
-
-            <div class="card">
-                <h2>[ 联系我们 ]</h2>
-                <p>Email: contact@oudkt.cyber<br>
-                   Matrix: @oudkt:matrix.org<br>
-                   Location: 赛博空间 - 第七区</p>
-            </div>
-        </div>
-
-        <!-- 行动按钮 -->
-        <div style="text-align: center; margin: 50px 0;">
-            <a href="#" class="cyber-button">进入系统</a>
-            <a href="#" class="cyber-button">了解更多</a>
-        </div>
-
-        <!-- 页脚 -->
-        <footer>
-            <p>&copy; 2026 OUDKT | 欧德凯特 | Powered by Cyberpunk Technology</p>
-            <p style="margin-top: 10px; font-size: 0.9em;">[ 未来已来，你准备好了吗？]</p>
-        </footer>
+        <!-- CTA -->
+        <section class="cta-section">
+            <h2 class="section-title">准备好开启未来了吗？</h2>
+            <a href="#" class="cta-button">联系我们</a>
+        </section>
     </div>
 
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 OUDKT | 欧德凯特 | 探索无限可能</p>
+    </footer>
+
     <script>
-        // 粒子效果
-        const canvas = document.getElementById('particles');
+        // 自定义光标
+        const cursor = document.querySelector('.cursor');
+        const follower = document.querySelector('.cursor-follower');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            setTimeout(() => {
+                follower.style.left = e.clientX + 'px';
+                follower.style.top = e.clientY + 'px';
+            }, 100);
+        });
+
+        // 背景粒子动画
+        const canvas = document.getElementById('bgCanvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
         const particles = [];
-        const particleCount = 100;
+        const particleCount = 80;
 
         class Particle {
             constructor() {
+                this.reset();
+            }
+
+            reset() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.vx = (Math.random() - 0.5) * 2;
-                this.vy = (Math.random() - 0.5) * 2;
-                this.size = Math.random() * 2;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.size = Math.random() * 2 + 1;
+                this.color = Math.random() > 0.5 ? '#00d9ff' : '#ff006e';
             }
 
             update() {
@@ -388,7 +549,9 @@
             }
 
             draw() {
-                ctx.fillStyle = 'rgba(0, 255, 65, 0.5)';
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = this.color;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
@@ -407,16 +570,16 @@
                 particle.draw();
             });
 
-            // 连线效果
+            // 连线
             particles.forEach((p1, i) => {
                 particles.slice(i + 1).forEach(p2 => {
                     const dx = p1.x - p2.x;
                     const dy = p1.y - p2.y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
 
-                    if (distance < 100) {
-                        ctx.strokeStyle = `rgba(0, 255, 65, ${1 - distance / 100})`;
-                        ctx.lineWidth = 0.5;
+                    if (distance < 150) {
+                        ctx.strokeStyle = `rgba(0, 217, 255, ${0.2 * (1 - distance / 150)})`;
+                        ctx.lineWidth = 1;
                         ctx.beginPath();
                         ctx.moveTo(p1.x, p1.y);
                         ctx.lineTo(p2.x, p2.y);
@@ -430,33 +593,31 @@
 
         animate();
 
-        // 窗口大小调整
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         });
 
-        // 鼠标跟随光效
-        document.addEventListener('mousemove', (e) => {
-            const glow = document.createElement('div');
-            glow.style.position = 'fixed';
-            glow.style.left = e.clientX + 'px';
-            glow.style.top = e.clientY + 'px';
-            glow.style.width = '10px';
-            glow.style.height = '10px';
-            glow.style.borderRadius = '50%';
-            glow.style.background = 'rgba(255, 0, 222, 0.5)';
-            glow.style.boxShadow = '0 0 20px rgba(255, 0, 222, 0.8)';
-            glow.style.pointerEvents = 'none';
-            glow.style.zIndex = '999';
-            document.body.appendChild(glow);
+        // 滚动动画
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
 
-            setTimeout(() => {
-                glow.style.transition = 'all 0.5s';
-                glow.style.opacity = '0';
-                glow.style.transform = 'scale(3)';
-                setTimeout(() => glow.remove(), 500);
-            }, 10);
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.card, .section-title, .stat-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(50px)';
+            el.style.transition = 'all 0.8s cubic-bezier(0.23, 1, 0.32, 1)';
+            observer.observe(el);
         });
     </script>
 </body>
