@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>欧德凯特 OUDKT - 赛博朋克主页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: #0a0e27;
+            color: #00ff41;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* 赛博朋克网格背景 */
+        .cyber-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(0deg, transparent 24%, rgba(0, 255, 65, .05) 25%, rgba(0, 255, 65, .05) 26%, transparent 27%, transparent 74%, rgba(0, 255, 65, .05) 75%, rgba(0, 255, 65, .05) 76%, transparent 77%, transparent),
+                linear-gradient(90deg, transparent 24%, rgba(0, 255, 65, .05) 25%, rgba(0, 255, 65, .05) 26%, transparent 27%, transparent 74%, rgba(0, 255, 65, .05) 75%, rgba(0, 255, 65, .05) 76%, transparent 77%, transparent);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes gridMove {
+            0% { transform: perspective(500px) rotateX(60deg) translateY(0); }
+            100% { transform: perspective(500px) rotateX(60deg) translateY(50px); }
+        }
+
+        /* 扫描线效果 */
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: rgba(0, 255, 65, 0.8);
+            box-shadow: 0 0 10px rgba(0, 255, 65, 0.8);
+            animation: scan 4s linear infinite;
+            z-index: 999;
+        }
+
+        @keyframes scan {
+            0% { top: 0; }
+            100% { top: 100%; }
+        }
+
+        /* 主容器 */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* 头部 */
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 4em;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 10px;
+            color: #00ff41;
+            text-shadow: 
+                0 0 10px #00ff41,
+                0 0 20px #00ff41,
+                0 0 30px #00ff41,
+                0 0 40px #ff00de,
+                0 0 70px #ff00de,
+                0 0 80px #ff00de,
+                0 0 100px #ff00de;
+            animation: glitch 3s infinite, neon 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes glitch {
+            0%, 90%, 100% { transform: translate(0); }
+            92% { transform: translate(-2px, 2px); }
+            94% { transform: translate(2px, -2px); }
+            96% { transform: translate(-2px, -2px); }
+            98% { transform: translate(2px, 2px); }
+        }
+
+        @keyframes neon {
+            from {
+                text-shadow: 
+                    0 0 10px #00ff41,
+                    0 0 20px #00ff41,
+                    0 0 30px #00ff41,
+                    0 0 40px #ff00de,
+                    0 0 70px #ff00de,
+                    0 0 80px #ff00de,
+                    0 0 100px #ff00de;
+            }
+            to {
+                text-shadow: 
+                    0 0 5px #00ff41,
+                    0 0 10px #00ff41,
+                    0 0 15px #00ff41,
+                    0 0 20px #ff00de,
+                    0 0 35px #ff00de,
+                    0 0 40px #ff00de,
+                    0 0 50px #ff00de;
+            }
+        }
+
+        .subtitle {
+            font-size: 1.5em;
+            color: #ff00de;
+            margin-top: 20px;
+            text-shadow: 0 0 10px #ff00de;
+            animation: flicker 2s infinite;
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        /* 卡片容器 */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .card {
+            background: rgba(10, 14, 39, 0.8);
+            border: 2px solid #00ff41;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 255, 65, 0.1), transparent);
+            animation: cardShine 3s infinite;
+        }
+
+        @keyframes cardShine {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 40px rgba(0, 255, 65, 0.6);
+            border-color: #ff00de;
+        }
+
+        .card h2 {
+            color: #ff00de;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px #ff00de;
+        }
+
+        .card p {
+            line-height: 1.6;
+            color: #00ff41;
+        }
+
+        /* 终端效果 */
+        .terminal {
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid #00ff41;
+            padding: 20px;
+            margin: 50px 0;
+            font-family: 'Courier New', monospace;
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.5);
+        }
+
+        .terminal-header {
+            color: #ff00de;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .terminal-line {
+            color: #00ff41;
+            margin: 5px 0;
+            animation: typing 3s steps(40) infinite;
+        }
+
+        .terminal-line::before {
+            content: '> ';
+            color: #ff00de;
+        }
+
+        @keyframes typing {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* 粒子效果容器 */
+        #particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        /* 按钮 */
+        .cyber-button {
+            display: inline-block;
+            padding: 15px 40px;
+            margin: 10px;
+            background: transparent;
+            border: 2px solid #00ff41;
+            color: #00ff41;
+            font-size: 1.2em;
+            text-transform: uppercase;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .cyber-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 255, 65, 0.3);
+            transition: left 0.3s;
+        }
+
+        .cyber-button:hover::before {
+            left: 100%;
+        }
+
+        .cyber-button:hover {
+            box-shadow: 0 0 20px #00ff41;
+            color: #ff00de;
+            border-color: #ff00de;
+        }
+
+        /* 页脚 */
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: #00ff41;
+            border-top: 2px solid #00ff41;
+            margin-top: 50px;
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.5em;
+                letter-spacing: 5px;
+            }
+            .cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 扫描线 -->
+    <div class="scanline"></div>
+    
+    <!-- 网格背景 -->
+    <div class="cyber-grid"></div>
+    
+    <!-- 粒子背景 -->
+    <canvas id="particles"></canvas>
+
+    <div class="container">
+        <!-- 头部 -->
+        <header>
+            <h1 class="logo">OUDKT</h1>
+            <p class="subtitle">[ 欧德凯特 - 赛博空间先锋 ]</p>
+        </header>
+
+        <!-- 终端介绍 -->
+        <div class="terminal">
+            <div class="terminal-header">SYSTEM_INIT.exe</div>
+            <div class="terminal-line">正在连接赛博空间...</div>
+            <div class="terminal-line">身份验证通过 [OUDKT_VERIFIED]</div>
+            <div class="terminal-line">欢迎来到未来世界</div>
+        </div>
+
+        <!-- 卡片区域 -->
+        <div class="cards">
+            <div class="card">
+                <h2>[ 关于我们 ]</h2>
+                <p>欧德凯特（OUDKT）是一家专注于前沿科技的创新企业。我们致力于将赛博朋克的美学与尖端技术完美融合，打造属于未来的数字体验。</p>
+            </div>
+
+            <div class="card">
+                <h2>[ 核心技术 ]</h2>
+                <p>AI 智能算法 | 区块链技术 | 量子计算 | 神经网络接口 | 虚拟现实 | 增强现实 | 全息投影 | 赛博安全防护</p>
+            </div>
+
+            <div class="card">
+                <h2>[ 产品服务 ]</h2>
+                <p>智能助手系统 | 数据可视化平台 | 赛博安全解决方案 | 元宇宙开发 | AI 创作工具 | 未来科技咨询</p>
+            </div>
+
+            <div class="card">
+                <h2>[ 企业愿景 ]</h2>
+                <p>连接现实与虚拟，构建人类与 AI 共生的未来世界。在霓虹闪烁的赛博空间中，我们是探索者，也是创造者。</p>
+            </div>
+
+            <div class="card">
+                <h2>[ 团队实力 ]</h2>
+                <p>核心团队由来自全球顶尖科技公司的工程师、设计师和黑客组成。我们不仅懂技术，更懂未来。</p>
+            </div>
+
+            <div class="card">
+                <h2>[ 联系我们 ]</h2>
+                <p>Email: contact@oudkt.cyber<br>
+                   Matrix: @oudkt:matrix.org<br>
+                   Location: 赛博空间 - 第七区</p>
+            </div>
+        </div>
+
+        <!-- 行动按钮 -->
+        <div style="text-align: center; margin: 50px 0;">
+            <a href="#" class="cyber-button">进入系统</a>
+            <a href="#" class="cyber-button">了解更多</a>
+        </div>
+
+        <!-- 页脚 -->
+        <footer>
+            <p>&copy; 2026 OUDKT | 欧德凯特 | Powered by Cyberpunk Technology</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">[ 未来已来，你准备好了吗？]</p>
+        </footer>
+    </div>
+
+    <script>
+        // 粒子效果
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        const particleCount = 100;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 2;
+                this.vy = (Math.random() - 0.5) * 2;
+                this.size = Math.random() * 2;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+
+            draw() {
+                ctx.fillStyle = 'rgba(0, 255, 65, 0.5)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+
+            // 连线效果
+            particles.forEach((p1, i) => {
+                particles.slice(i + 1).forEach(p2 => {
+                    const dx = p1.x - p2.x;
+                    const dy = p1.y - p2.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 100) {
+                        ctx.strokeStyle = `rgba(0, 255, 65, ${1 - distance / 100})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(p1.x, p1.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                    }
+                });
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        // 窗口大小调整
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // 鼠标跟随光效
+        document.addEventListener('mousemove', (e) => {
+            const glow = document.createElement('div');
+            glow.style.position = 'fixed';
+            glow.style.left = e.clientX + 'px';
+            glow.style.top = e.clientY + 'px';
+            glow.style.width = '10px';
+            glow.style.height = '10px';
+            glow.style.borderRadius = '50%';
+            glow.style.background = 'rgba(255, 0, 222, 0.5)';
+            glow.style.boxShadow = '0 0 20px rgba(255, 0, 222, 0.8)';
+            glow.style.pointerEvents = 'none';
+            glow.style.zIndex = '999';
+            document.body.appendChild(glow);
+
+            setTimeout(() => {
+                glow.style.transition = 'all 0.5s';
+                glow.style.opacity = '0';
+                glow.style.transform = 'scale(3)';
+                setTimeout(() => glow.remove(), 500);
+            }, 10);
+        });
+    </script>
+</body>
+</html>
