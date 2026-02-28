@@ -4,65 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OUDKT - 欧德凯特</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap');
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --primary: #00d9ff;
-            --secondary: #ff006e;
-            --accent: #8338ec;
-            --dark: #0d0221;
-            --darker: #050014;
-        }
-
         body {
             font-family: 'Rajdhani', sans-serif;
-            background: var(--darker);
+            background: #000;
             color: #fff;
             overflow-x: hidden;
-            cursor: none;
         }
 
-        /* 自定义光标 */
-        .cursor {
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--primary);
-            border-radius: 50%;
+        /* Vanta.js 背景容器 */
+        #vanta-bg {
             position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            transition: all 0.1s ease;
-            mix-blend-mode: difference;
-        }
-
-        .cursor-follower {
-            width: 8px;
-            height: 8px;
-            background: var(--secondary);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            transition: all 0.15s ease;
-            box-shadow: 0 0 20px var(--secondary);
-        }
-
-        /* 背景动画 */
-        .bg-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
             z-index: 0;
-            opacity: 0.3;
         }
 
         /* Hero 区域 */
@@ -78,61 +40,23 @@
 
         .hero-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: clamp(3rem, 10vw, 8rem);
+            font-size: clamp(4rem, 12vw, 10rem);
             font-weight: 900;
-            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: 0.1em;
-            animation: titleGlow 3s ease-in-out infinite;
-            position: relative;
-        }
-
-        @keyframes titleGlow {
-            0%, 100% {
-                filter: drop-shadow(0 0 20px var(--primary)) drop-shadow(0 0 40px var(--secondary));
-            }
-            50% {
-                filter: drop-shadow(0 0 40px var(--primary)) drop-shadow(0 0 80px var(--secondary));
-            }
+            color: #00d9ff;
+            text-shadow: 
+                0 0 20px #00d9ff,
+                0 0 40px #00d9ff,
+                0 0 80px #ff006e;
+            letter-spacing: 0.2em;
+            margin-bottom: 30px;
         }
 
         .hero-subtitle {
-            font-size: clamp(1rem, 3vw, 2rem);
+            font-size: clamp(1.2rem, 3vw, 2.5rem);
             font-weight: 300;
-            margin-top: 20px;
-            color: rgba(255, 255, 255, 0.7);
-            letter-spacing: 0.3em;
+            color: rgba(255, 255, 255, 0.8);
+            letter-spacing: 0.5em;
             text-transform: uppercase;
-        }
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: 50px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 30px;
-            height: 50px;
-            border: 2px solid var(--primary);
-            border-radius: 20px;
-            display: flex;
-            justify-content: center;
-            padding-top: 10px;
-        }
-
-        .scroll-indicator::before {
-            content: '';
-            width: 4px;
-            height: 10px;
-            background: var(--primary);
-            border-radius: 2px;
-            animation: scrollDown 2s infinite;
-        }
-
-        @keyframes scrollDown {
-            0% { transform: translateY(0); opacity: 1; }
-            100% { transform: translateY(20px); opacity: 0; }
         }
 
         /* 内容区域 */
@@ -150,209 +74,153 @@
 
         .section-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: clamp(2rem, 5vw, 4rem);
+            font-size: clamp(2.5rem, 6vw, 5rem);
             font-weight: 700;
-            margin-bottom: 60px;
-            position: relative;
-            display: inline-block;
+            margin-bottom: 80px;
+            text-align: center;
+            background: linear-gradient(135deg, #00d9ff, #ff006e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            animation: lineExpand 1s ease-out;
-        }
-
-        @keyframes lineExpand {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-
-        /* 卡片网格 */
-        .grid {
+        /* 图片网格 */
+        .image-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .image-card {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+            border: 2px solid rgba(0, 217, 255, 0.3);
+            transition: all 0.4s;
+        }
+
+        .image-card:hover {
+            border-color: #00d9ff;
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(0, 217, 255, 0.5);
+        }
+
+        .image-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.7) contrast(1.2);
+            transition: all 0.4s;
+        }
+
+        .image-card:hover img {
+            filter: brightness(1) contrast(1.3);
+            transform: scale(1.1);
+        }
+
+        .image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 30px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+        }
+
+        .image-overlay h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            color: #00d9ff;
+            margin-bottom: 10px;
+        }
+
+        .image-overlay p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* 特色卡片 */
+        .feature-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 40px;
         }
 
-        .card {
-            background: rgba(13, 2, 33, 0.6);
+        .feature-card {
+            background: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 217, 255, 0.2);
-            padding: 40px;
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            padding: 50px 40px;
+            text-align: center;
+            transition: all 0.4s;
             position: relative;
             overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
-        .card::before {
+        .feature-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.1), transparent);
+            background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.2), transparent);
             transition: left 0.6s;
         }
 
-        .card:hover::before {
+        .feature-card:hover::before {
             left: 100%;
         }
 
-        .card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-            box-shadow: 0 20px 60px rgba(0, 217, 255, 0.3);
+        .feature-card:hover {
+            transform: translateY(-15px);
+            border-color: #ff006e;
+            box-shadow: 0 20px 60px rgba(255, 0, 110, 0.4);
         }
 
-        .card-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .feature-icon {
+            font-size: 4rem;
+            margin-bottom: 30px;
         }
 
-        .card-title {
+        .feature-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: var(--primary);
+            font-size: 1.8rem;
+            color: #00d9ff;
+            margin-bottom: 20px;
         }
 
-        .card-text {
+        .feature-text {
             font-size: 1.1rem;
             line-height: 1.8;
             color: rgba(255, 255, 255, 0.8);
         }
 
-        /* 特色区域 */
-        .feature-showcase {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-            margin: 100px 0;
-        }
-
-        .feature-visual {
-            width: 100%;
-            height: 500px;
-            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(255, 0, 110, 0.1));
-            border: 1px solid rgba(0, 217, 255, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-visual::before {
-            content: '';
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            background: repeating-linear-gradient(
-                0deg,
-                transparent,
-                transparent 2px,
-                rgba(0, 217, 255, 0.1) 2px,
-                rgba(0, 217, 255, 0.1) 4px
-            );
-            animation: scanlines 10s linear infinite;
-        }
-
-        @keyframes scanlines {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(50%); }
-        }
-
-        .feature-content h3 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .feature-content p {
-            font-size: 1.2rem;
-            line-height: 2;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 20px;
-        }
-
-        /* 统计数据 */
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            margin: 100px 0;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 40px;
-            background: rgba(13, 2, 33, 0.6);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 217, 255, 0.2);
-            transition: all 0.3s;
-        }
-
-        .stat-item:hover {
-            border-color: var(--secondary);
-            transform: scale(1.05);
-        }
-
-        .stat-number {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 3.5rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .stat-label {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.7);
-            margin-top: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-        }
-
         /* CTA 按钮 */
         .cta-section {
             text-align: center;
-            padding: 100px 40px;
-            background: linear-gradient(135deg, rgba(0, 217, 255, 0.05), rgba(255, 0, 110, 0.05));
-            border-top: 1px solid rgba(0, 217, 255, 0.2);
-            border-bottom: 1px solid rgba(0, 217, 255, 0.2);
+            padding: 120px 40px;
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(255, 0, 110, 0.1));
+            border-top: 2px solid rgba(0, 217, 255, 0.3);
+            border-bottom: 2px solid rgba(0, 217, 255, 0.3);
         }
 
         .cta-button {
             display: inline-block;
-            padding: 20px 60px;
+            padding: 25px 70px;
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             font-weight: 700;
-            color: #fff;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #000;
+            background: linear-gradient(135deg, #00d9ff, #ff006e);
             border: none;
             text-decoration: none;
             text-transform: uppercase;
-            letter-spacing: 0.2em;
+            letter-spacing: 0.3em;
             position: relative;
             overflow: hidden;
-            transition: all 0.3s;
+            transition: all 0.4s;
             cursor: pointer;
         }
 
@@ -363,8 +231,8 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: rgba(255, 255, 255, 0.2);
-            transition: left 0.3s;
+            background: rgba(255, 255, 255, 0.3);
+            transition: left 0.4s;
         }
 
         .cta-button:hover::before {
@@ -372,60 +240,71 @@
         }
 
         .cta-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 217, 255, 0.4);
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0, 217, 255, 0.6);
         }
 
         /* Footer */
         footer {
-            padding: 60px 40px;
+            padding: 80px 40px;
             text-align: center;
-            border-top: 1px solid rgba(0, 217, 255, 0.2);
+            background: rgba(0, 0, 0, 0.9);
+            border-top: 2px solid rgba(0, 217, 255, 0.3);
         }
 
         footer p {
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 1rem;
-            letter-spacing: 0.1em;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1.1rem;
+            letter-spacing: 0.2em;
         }
 
         /* 响应式 */
         @media (max-width: 768px) {
-            .feature-showcase {
+            .image-grid {
                 grid-template-columns: 1fr;
             }
-            .grid {
+            .feature-cards {
                 grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <!-- 自定义光标 -->
-    <div class="cursor"></div>
-    <div class="cursor-follower"></div>
-
-    <!-- 背景动画 -->
-    <canvas class="bg-animation" id="bgCanvas"></canvas>
+    <!-- Vanta.js 3D 背景 -->
+    <div id="vanta-bg"></div>
 
     <!-- Hero 区域 -->
     <section class="hero">
-        <h1 class="hero-title">OUDKT</h1>
+        <h1 class="hero-title" id="glitch-title">OUDKT</h1>
         <p class="hero-subtitle">欧德凯特</p>
-        <div class="scroll-indicator"></div>
     </section>
 
     <!-- 内容区域 -->
     <div class="content">
-        <!-- 关于我们 -->
+        <!-- 视觉展示 -->
         <section class="section">
-            <h2 class="section-title">关于我们</h2>
-            <div class="feature-showcase">
-                <div class="feature-visual"></div>
-                <div class="feature-content">
-                    <h3>未来科技的先行者</h3>
-                    <p>欧德凯特（OUDKT）是一家专注于前沿技术研发与创新的科技公司。我们将人工智能、区块链、量子计算等尖端技术融入产品，为客户提供超越时代的解决方案。</p>
-                    <p>在这个数字化转型的时代，我们不仅是技术的实践者，更是未来的塑造者。</p>
+            <h2 class="section-title">未来已来</h2>
+            <div class="image-grid">
+                <div class="image-card">
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800&q=80" alt="赛博城市">
+                    <div class="image-overlay">
+                        <h3>数字化转型</h3>
+                        <p>引领企业进入智能时代</p>
+                    </div>
+                </div>
+                <div class="image-card">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80" alt="科技">
+                    <div class="image-overlay">
+                        <h3>前沿技术</h3>
+                        <p>AI、区块链、量子计算</p>
+                    </div>
+                </div>
+                <div class="image-card">
+                    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80" alt="数据">
+                    <div class="image-overlay">
+                        <h3>数据智能</h3>
+                        <p>让数据产生价值</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -433,66 +312,43 @@
         <!-- 核心能力 -->
         <section class="section">
             <h2 class="section-title">核心能力</h2>
-            <div class="grid">
-                <div class="card">
-                    <div class="card-icon">🧠</div>
-                    <h3 class="card-title">人工智能</h3>
-                    <p class="card-text">深度学习、神经网络、自然语言处理，打造智能化的未来体验。</p>
+            <div class="feature-cards">
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3 class="feature-title">人工智能</h3>
+                    <p class="feature-text">深度学习、神经网络、自然语言处理，打造智能化的未来体验</p>
                 </div>
-                <div class="card">
-                    <div class="card-icon">🔗</div>
-                    <h3 class="card-title">区块链技术</h3>
-                    <p class="card-text">去中心化、智能合约、数字资产管理，构建可信的数字世界。</p>
+                <div class="feature-card">
+                    <div class="feature-icon">🔗</div>
+                    <h3 class="feature-title">区块链</h3>
+                    <p class="feature-text">去中心化、智能合约、数字资产管理，构建可信的数字世界</p>
                 </div>
-                <div class="card">
-                    <div class="card-icon">⚡</div>
-                    <h3 class="card-title">量子计算</h3>
-                    <p class="card-text">突破传统计算极限，探索量子算法在实际场景中的应用。</p>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">量子计算</h3>
+                    <p class="feature-text">突破传统计算极限，探索量子算法在实际场景中的应用</p>
                 </div>
-                <div class="card">
-                    <div class="card-icon">🌐</div>
-                    <h3 class="card-title">元宇宙开发</h3>
-                    <p class="card-text">虚拟现实、增强现实、数字孪生，创造沉浸式的虚拟空间。</p>
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3 class="feature-title">元宇宙</h3>
+                    <p class="feature-text">虚拟现实、增强现实、数字孪生，创造沉浸式的虚拟空间</p>
                 </div>
-                <div class="card">
-                    <div class="card-icon">🛡️</div>
-                    <h3 class="card-title">网络安全</h3>
-                    <p class="card-text">零信任架构、威胁情报、安全防护，守护数字资产安全。</p>
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3 class="feature-title">网络安全</h3>
+                    <p class="feature-text">零信任架构、威胁情报、安全防护，守护数字资产安全</p>
                 </div>
-                <div class="card">
-                    <div class="card-icon">📊</div>
-                    <h3 class="card-title">数据智能</h3>
-                    <p class="card-text">大数据分析、可视化、预测建模，让数据产生价值。</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- 数据统计 -->
-        <section class="section">
-            <h2 class="section-title">我们的成就</h2>
-            <div class="stats">
-                <div class="stat-item">
-                    <div class="stat-number">500+</div>
-                    <div class="stat-label">企业客户</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">1000+</div>
-                    <div class="stat-label">项目交付</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">50+</div>
-                    <div class="stat-label">技术专利</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">99.9%</div>
-                    <div class="stat-label">客户满意度</div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3 class="feature-title">数据智能</h3>
+                    <p class="feature-text">大数据分析、可视化、预测建模，让数据产生价值</p>
                 </div>
             </div>
         </section>
 
         <!-- CTA -->
         <section class="cta-section">
-            <h2 class="section-title">准备好开启未来了吗？</h2>
+            <h2 class="section-title">准备好探索未来了吗？</h2>
             <a href="#" class="cta-button">联系我们</a>
         </section>
     </div>
@@ -502,100 +358,48 @@
         <p>&copy; 2026 OUDKT | 欧德凯特 | 探索无限可能</p>
     </footer>
 
-    <script>
-        // 自定义光标
-        const cursor = document.querySelector('.cursor');
-        const follower = document.querySelector('.cursor-follower');
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <!-- Vanta.js NET 效果 -->
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+    <!-- Glitched Writer -->
+    <script src="https://unpkg.com/glitched-writer@latest/dist/index.min.js"></script>
 
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-            
-            setTimeout(() => {
-                follower.style.left = e.clientX + 'px';
-                follower.style.top = e.clientY + 'px';
-            }, 100);
+    <script>
+        // Vanta.js 3D 网络背景
+        VANTA.NET({
+            el: "#vanta-bg",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x00d9ff,
+            backgroundColor: 0x000000,
+            points: 15.00,
+            maxDistance: 25.00,
+            spacing: 18.00
         });
 
-        // 背景粒子动画
-        const canvas = document.getElementById('bgCanvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        // Glitched Writer 故障文字效果
+        const Writer = glitched.default;
+        const writer = new Writer('#glitch-title', {
+            interval: [50, 150],
+            steps: [1, 10],
+            glyphs: '!<>-_\\/[]{}—=+*^?#________',
+            mode: 'matching'
+        });
 
-        const particles = [];
-        const particleCount = 80;
-
-        class Particle {
-            constructor() {
-                this.reset();
-            }
-
-            reset() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.vx = (Math.random() - 0.5) * 0.5;
-                this.vy = (Math.random() - 0.5) * 0.5;
-                this.size = Math.random() * 2 + 1;
-                this.color = Math.random() > 0.5 ? '#00d9ff' : '#ff006e';
-            }
-
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-
-                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-            }
-
-            draw() {
-                ctx.fillStyle = this.color;
-                ctx.shadowBlur = 10;
-                ctx.shadowColor = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        for (let i = 0; i < particleCount; i++) {
-            particles.push(new Particle());
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            particles.forEach(particle => {
-                particle.update();
-                particle.draw();
+        // 页面加载时触发故障效果
+        window.addEventListener('load', () => {
+            writer.write('OUDKT').then(() => {
+                // 每 5 秒重新触发一次故障效果
+                setInterval(() => {
+                    writer.write('OUDKT');
+                }, 5000);
             });
-
-            // 连线
-            particles.forEach((p1, i) => {
-                particles.slice(i + 1).forEach(p2 => {
-                    const dx = p1.x - p2.x;
-                    const dy = p1.y - p2.y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-
-                    if (distance < 150) {
-                        ctx.strokeStyle = `rgba(0, 217, 255, ${0.2 * (1 - distance / 150)})`;
-                        ctx.lineWidth = 1;
-                        ctx.beginPath();
-                        ctx.moveTo(p1.x, p1.y);
-                        ctx.lineTo(p2.x, p2.y);
-                        ctx.stroke();
-                    }
-                });
-            });
-
-            requestAnimationFrame(animate);
-        }
-
-        animate();
-
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
         });
 
         // 滚动动画
@@ -613,7 +417,7 @@
             });
         }, observerOptions);
 
-        document.querySelectorAll('.card, .section-title, .stat-item').forEach(el => {
+        document.querySelectorAll('.image-card, .feature-card, .section-title').forEach(el => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(50px)';
             el.style.transition = 'all 0.8s cubic-bezier(0.23, 1, 0.32, 1)';
