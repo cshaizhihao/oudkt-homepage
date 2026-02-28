@@ -1,101 +1,140 @@
-# OUDKT 欧德凯特官网 🚀
+# OUDKT 欧德凯特智能导航中心 🚀
 
-> 一个超级炫酷的赛博朋克风格网站（真的很炫酷，不骗你）
+> 一个现代化的个人主页/服务导航系统，灵感来自 Homepage 和 Home-Vue
 
 ## 这是啥？🤔
 
-这是欧德凯特（OUDKT）公司的官方网站。我们是一家做未来科技的公司（听起来很厉害对吧）。
+这是欧德凯特（OUDKT）的智能导航中心。一个集服务监控、快捷书签、搜索导航于一体的现代化主页。
 
-网站有：
-- ✨ 炫酷的 3D 背景动画（用的是 Vanta.js，很牛逼的库）
-- 🎨 现代化的设计（不是那种土味赛博朋克）
-- 📱 响应式布局（手机上也能看）
-- ⚙️ 管理后台（可以改文字，超方便）
+**特色功能：**
+- 🎨 现代化设计（参考 gethomepage/homepage）
+- 📊 服务卡片展示（CPU、内存监控）
+- 🔖 快捷书签管理
+- 🔍 智能搜索（支持直接输入 URL 跳转）
+- ⚙️ 完整的后台管理系统
+- 📱 响应式布局（手机也能用）
+- 💾 本地存储（数据保存在浏览器）
 
 ## 怎么用？🛠️
 
-### 看网站
+### 看主页
 直接打开 `index.html` 就行了。
 
 或者访问：https://cshaizhihao.github.io/oudkt-homepage/
 
-### 改内容
-1. 点右下角的小齿轮 ⚙️
+### 管理内容
+1. 点右上角的"管理"按钮，或者点右下角的浮动按钮
 2. 输入账号：`admin`
 3. 输入密码：`admin`
-4. 然后就可以改文字了！
-5. 改完点"保存修改"
-6. 回到首页刷新一下就能看到了
+4. 然后就可以管理服务和书签了！
 
-**注意：** 数据保存在浏览器的 localStorage 里，换个浏览器就没了（这是个 feature 不是 bug）
+**可以管理：**
+- ✅ 服务卡片（名称、图标、描述、CPU、内存）
+- ✅ 快捷书签（名称、图标、URL、分类）
 
 ## 文件说明📁
 
 ```
 oudkt-homepage/
-├── index.html      # 主页（就是你看到的那个炫酷页面）
-├── admin.html      # 管理后台（改文字的地方）
+├── index.html      # 主页（服务导航中心）
+├── admin.html      # 管理后台（管理服务和书签）
 └── README.md       # 你现在看的这个文件
 ```
 
 ## 技术栈🔧
 
-- HTML（废话）
-- CSS（还是废话）
-- JavaScript（继续废话）
-- Vanta.js（3D 背景动画，这个牛逼）
-- Three.js（Vanta.js 依赖的，也很牛逼）
-- Space Grotesk 字体（Google Fonts，很好看）
-- JetBrains Mono 字体（程序员最爱的等宽字体）
+- HTML5 + CSS3 + JavaScript（原生，不依赖框架）
+- Font Awesome 6.4（图标库）
+- Inter 字体（Google Fonts）
+- LocalStorage（数据存储）
 
 ## 特色功能✨
 
-### 1. 3D 粒子背景
-首页有个超炫的 3D 网络动画背景，鼠标移动还会跟着动（试试看！）
+### 1. 服务卡片
+显示你的各种服务，支持：
+- 自定义图标（Font Awesome）
+- 服务描述
+- CPU 和内存使用率显示
+- 在线状态指示
 
-### 2. 平滑滚动
-点导航栏的链接会平滑滚动到对应位置（不是那种生硬的跳转）
+### 2. 快捷书签
+快速访问常用网站：
+- 支持自定义图标
+- 分类管理
+- 一键跳转
 
-### 3. 滚动动画
-往下滚的时候卡片会淡入并上浮（很丝滑）
+### 3. 智能搜索
+搜索栏支持：
+- 搜索服务和书签
+- 直接输入 URL 跳转（http:// 或 https://）
 
 ### 4. 管理后台
-可以改这些内容：
-- Hero 区域的标题和副标题
-- 关于我们的标题和内容
-- 统计数据（企业客户、项目交付、技术专利、客户满意度）
-- 页脚文字
+完整的后台管理系统：
+- 添加/编辑/删除服务
+- 添加/编辑/删除书签
+- 实时预览
 
 ## 常见问题❓
 
-**Q: 为什么我改了内容刷新后没变？**  
-A: 确保你在管理后台点了"保存修改"，然后回到首页按 Ctrl+F5 强制刷新。
+**Q: 数据存在哪里？**  
+A: 存在浏览器的 LocalStorage 里，换个浏览器就没了。
 
-**Q: 为什么换个浏览器数据就没了？**  
-A: 因为数据存在 localStorage 里，每个浏览器的 localStorage 是独立的。
+**Q: 怎么改密码？**  
+A: 打开 `admin.html`，搜索 `username === 'admin' && password === 'admin'`，改成你想要的。
 
-**Q: 密码能改吗？**  
-A: 能，但是要改代码。打开 `admin.html` 搜索 `username === 'admin' && password === 'admin'` 这行，改成你想要的。
+**Q: 图标怎么选？**  
+A: 去 [Font Awesome](https://fontawesome.com/icons) 找图标，复制类名（比如 `fa-github`）。
 
-**Q: 这个网站能商用吗？**  
-A: 能啊，随便用。但是记得把内容改成你自己的。
+**Q: 能部署到 VPS 吗？**  
+A: 能！直接把文件扔到 Nginx/Apache 的 web 目录就行。
 
-**Q: 为什么 README 写得这么蠢？**  
-A: 因为老板让我写个"蠢一点的 README"（真的是老板说的）
+**Q: 为什么没有后端？**  
+A: 因为这是纯前端项目，数据存在浏览器里。如果需要多设备同步，可以自己加个后端。
 
-## 部署到 GitHub Pages🌐
+## 部署到 VPS🌐
 
+### 方法 1：Nginx
+```bash
+# 复制文件到 web 目录
+cp -r oudkt-homepage /var/www/html/
+
+# 配置 Nginx
+server {
+    listen 80;
+    server_name your-domain.com;
+    root /var/www/html/oudkt-homepage;
+    index index.html;
+}
+```
+
+### 方法 2：Docker
+```bash
+# 创建 Dockerfile
+FROM nginx:alpine
+COPY . /usr/share/nginx/html
+
+# 构建并运行
+docker build -t oudkt-homepage .
+docker run -d -p 80:80 oudkt-homepage
+```
+
+### 方法 3：GitHub Pages
 1. 把代码推到 GitHub 仓库
 2. 去仓库设置 → Pages
 3. Source 选 `master` 分支
 4. 等几分钟就好了
 
+## 设计灵感🎨
+
+- **gethomepage/homepage** - 服务卡片布局和功能设计
+- **JLinMr/Home-Vue** - 简洁的导航理念
+- **现代 Dashboard 设计** - 配色和交互
+
 ## 作者👨‍💻
 
-- 设计：Koma（一个 AI 助理）
-- 开发：还是 Koma
-- 测试：依然是 Koma
-- 老板：Zaki（提需求的那位）
+- 设计：Koma（AI 助理）
+- 开发：Koma
+- 老板：Zaki
 
 ## 许可证📄
 
@@ -103,4 +142,4 @@ A: 因为老板让我写个"蠢一点的 README"（真的是老板说的）
 
 ---
 
-**最后说一句：** 这个网站真的很炫酷，不信你打开看看！🔥
+**提示：** 这个项目适合作为个人主页、服务导航、团队内部工具使用。数据存在本地，安全可靠！🔒

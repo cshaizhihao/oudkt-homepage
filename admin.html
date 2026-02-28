@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OUDKT 管理后台</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -12,10 +13,23 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-card: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --border: #334155;
+            --success: #10b981;
+            --danger: #ef4444;
+        }
+
         body {
-            font-family: 'Space Grotesk', sans-serif;
-            background: #0a0a0a;
-            color: #fafafa;
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
         }
 
         /* 登录页面 */
@@ -24,173 +38,267 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 20px;
+            padding: 2rem;
         }
 
         .login-box {
-            background: #141414;
-            padding: 50px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 3rem;
             max-width: 400px;
             width: 100%;
         }
 
         .login-box h1 {
             font-size: 2rem;
-            margin-bottom: 30px;
-            color: #00ff88;
-            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--accent);
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 1.5rem;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 8px;
-            color: #a1a1a1;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
         }
 
         .form-group input {
             width: 100%;
-            padding: 12px;
-            background: #0a0a0a;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #fafafa;
+            padding: 0.75rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-primary);
             font-size: 1rem;
-            font-family: 'JetBrains Mono', monospace;
         }
 
         .form-group input:focus {
             outline: none;
-            border-color: #00ff88;
+            border-color: var(--accent);
         }
 
         .login-button {
             width: 100%;
-            padding: 15px;
-            background: #00ff88;
-            color: #0a0a0a;
+            padding: 0.75rem;
+            background: var(--accent);
+            color: white;
             border: none;
-            font-size: 1.1rem;
-            font-weight: 700;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
-            font-family: 'JetBrains Mono', monospace;
             transition: all 0.3s;
         }
 
         .login-button:hover {
-            background: #00cc6a;
+            background: var(--accent-hover);
         }
 
         .error-message {
-            color: #ff3366;
-            margin-top: 15px;
+            color: var(--danger);
+            margin-top: 1rem;
+            text-align: center;
             display: none;
         }
 
         /* 管理面板 */
         .admin-panel {
             display: none;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 2rem;
         }
 
         .admin-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 40px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
         }
 
         .admin-header h1 {
             font-size: 2rem;
-            color: #00ff88;
-            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent);
         }
 
         .logout-button {
-            padding: 10px 25px;
-            background: #ff3366;
-            color: #fafafa;
+            padding: 0.5rem 1rem;
+            background: var(--danger);
+            color: white;
             border: none;
+            border-radius: 6px;
             cursor: pointer;
-            font-family: 'JetBrains Mono', monospace;
             transition: all 0.3s;
         }
 
         .logout-button:hover {
-            background: #cc2952;
+            opacity: 0.8;
         }
 
-        .edit-section {
-            background: #141414;
-            padding: 30px;
-            margin-bottom: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
         }
 
-        .edit-section h2 {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            color: #00ff88;
-        }
-
-        .edit-field {
-            margin-bottom: 20px;
-        }
-
-        .edit-field label {
-            display: block;
-            margin-bottom: 8px;
-            color: #a1a1a1;
-            font-size: 0.9rem;
-        }
-
-        .edit-field input,
-        .edit-field textarea {
-            width: 100%;
-            padding: 12px;
-            background: #0a0a0a;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #fafafa;
-            font-size: 1rem;
-            font-family: 'Space Grotesk', sans-serif;
-        }
-
-        .edit-field textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-
-        .edit-field input:focus,
-        .edit-field textarea:focus {
-            outline: none;
-            border-color: #00ff88;
-        }
-
-        .save-button {
-            padding: 12px 30px;
-            background: #00ff88;
-            color: #0a0a0a;
+        .tab {
+            padding: 1rem 1.5rem;
+            background: transparent;
             border: none;
-            font-weight: 700;
+            color: var(--text-secondary);
             cursor: pointer;
-            font-family: 'JetBrains Mono', monospace;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .tab.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .add-button {
+            padding: 0.75rem 1.5rem;
+            background: var(--success);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
             transition: all 0.3s;
         }
 
-        .save-button:hover {
-            background: #00cc6a;
+        .add-button:hover {
+            opacity: 0.8;
+        }
+
+        .items-list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .item-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .item-info {
+            flex: 1;
+        }
+
+        .item-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .item-info p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .item-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .btn-edit {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-delete {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn:hover {
+            opacity: 0.8;
+        }
+
+        /* 模态框 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header h2 {
+            font-size: 1.5rem;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
         }
 
         .success-message {
-            color: #00ff88;
-            margin-top: 15px;
+            color: var(--success);
+            margin-top: 1rem;
+            text-align: center;
             display: none;
         }
     </style>
@@ -199,7 +307,7 @@
     <!-- 登录页面 -->
     <div class="login-container" id="loginContainer">
         <div class="login-box">
-            <h1>OUDKT 管理后台</h1>
+            <h1><i class="fas fa-lock"></i> 管理后台</h1>
             <form id="loginForm">
                 <div class="form-group">
                     <label>用户名</label>
@@ -218,76 +326,106 @@
     <!-- 管理面板 -->
     <div class="admin-panel" id="adminPanel">
         <div class="admin-header">
-            <h1>内容管理</h1>
-            <button class="logout-button" onclick="logout()">退出登录</button>
+            <h1><i class="fas fa-tachometer-alt"></i> 控制面板</h1>
+            <button class="logout-button" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> 退出登录
+            </button>
         </div>
 
-        <!-- Hero 区域编辑 -->
-        <div class="edit-section">
-            <h2>首页 Hero 区域</h2>
-            <div class="edit-field">
-                <label>主标题</label>
-                <input type="text" id="heroTitle" value="OUDKT">
-            </div>
-            <div class="edit-field">
-                <label>副标题</label>
-                <input type="text" id="heroSubtitle" value="欧德凯特 | 探索未来科技的无限可能">
-            </div>
-            <button class="save-button" onclick="saveHero()">保存修改</button>
-            <p class="success-message" id="heroSuccess">保存成功！</p>
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('services')">
+                <i class="fas fa-server"></i> 服务管理
+            </button>
+            <button class="tab" onclick="switchTab('bookmarks')">
+                <i class="fas fa-bookmark"></i> 书签管理
+            </button>
         </div>
 
-        <!-- 关于我们编辑 -->
-        <div class="edit-section">
-            <h2>关于我们</h2>
-            <div class="edit-field">
-                <label>标题</label>
-                <input type="text" id="aboutTitle" value="关于我们">
-            </div>
-            <div class="edit-field">
-                <label>内容</label>
-                <textarea id="aboutText">欧德凯特（OUDKT）是一家专注于前沿技术研发与创新的科技公司。我们将人工智能、区块链、量子计算等尖端技术融入产品，为客户提供超越时代的解决方案。</textarea>
-            </div>
-            <button class="save-button" onclick="saveAbout()">保存修改</button>
-            <p class="success-message" id="aboutSuccess">保存成功！</p>
+        <!-- 服务管理 -->
+        <div class="tab-content active" id="servicesTab">
+            <button class="add-button" onclick="openServiceModal()">
+                <i class="fas fa-plus"></i> 添加服务
+            </button>
+            <div class="items-list" id="servicesList"></div>
         </div>
 
-        <!-- 统计数据编辑 -->
-        <div class="edit-section">
-            <h2>统计数据</h2>
-            <div class="edit-field">
-                <label>企业客户数量</label>
-                <input type="text" id="stat1" value="500+">
-            </div>
-            <div class="edit-field">
-                <label>项目交付数量</label>
-                <input type="text" id="stat2" value="1000+">
-            </div>
-            <div class="edit-field">
-                <label>技术专利数量</label>
-                <input type="text" id="stat3" value="50+">
-            </div>
-            <div class="edit-field">
-                <label>客户满意度</label>
-                <input type="text" id="stat4" value="99.9%">
-            </div>
-            <button class="save-button" onclick="saveStats()">保存修改</button>
-            <p class="success-message" id="statsSuccess">保存成功！</p>
+        <!-- 书签管理 -->
+        <div class="tab-content" id="bookmarksTab">
+            <button class="add-button" onclick="openBookmarkModal()">
+                <i class="fas fa-plus"></i> 添加书签
+            </button>
+            <div class="items-list" id="bookmarksList"></div>
         </div>
+    </div>
 
-        <!-- Footer 编辑 -->
-        <div class="edit-section">
-            <h2>页脚信息</h2>
-            <div class="edit-field">
-                <label>页脚文字</label>
-                <input type="text" id="footerText" value="© 2026 OUDKT | 欧德凯特 | 探索无限可能">
+    <!-- 服务模态框 -->
+    <div class="modal" id="serviceModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="serviceModalTitle">添加服务</h2>
+                <button class="close-modal" onclick="closeServiceModal()">×</button>
             </div>
-            <button class="save-button" onclick="saveFooter()">保存修改</button>
-            <p class="success-message" id="footerSuccess">保存成功！</p>
+            <form id="serviceForm">
+                <div class="form-group">
+                    <label>服务名称</label>
+                    <input type="text" id="serviceName" required>
+                </div>
+                <div class="form-group">
+                    <label>图标 (Font Awesome 类名)</label>
+                    <input type="text" id="serviceIcon" placeholder="fa-brain" required>
+                </div>
+                <div class="form-group">
+                    <label>描述</label>
+                    <input type="text" id="serviceDescription" required>
+                </div>
+                <div class="form-group">
+                    <label>CPU 使用率</label>
+                    <input type="text" id="serviceCpu" placeholder="45%" required>
+                </div>
+                <div class="form-group">
+                    <label>内存使用</label>
+                    <input type="text" id="serviceMemory" placeholder="2.1GB" required>
+                </div>
+                <button type="submit" class="login-button">保存</button>
+                <p class="success-message" id="serviceSuccess">保存成功！</p>
+            </form>
+        </div>
+    </div>
+
+    <!-- 书签模态框 -->
+    <div class="modal" id="bookmarkModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="bookmarkModalTitle">添加书签</h2>
+                <button class="close-modal" onclick="closeBookmarkModal()">×</button>
+            </div>
+            <form id="bookmarkForm">
+                <div class="form-group">
+                    <label>名称</label>
+                    <input type="text" id="bookmarkName" required>
+                </div>
+                <div class="form-group">
+                    <label>图标 (Font Awesome 类名)</label>
+                    <input type="text" id="bookmarkIcon" placeholder="fa-github" required>
+                </div>
+                <div class="form-group">
+                    <label>URL</label>
+                    <input type="url" id="bookmarkUrl" placeholder="https://example.com" required>
+                </div>
+                <div class="form-group">
+                    <label>分类</label>
+                    <input type="text" id="bookmarkCategory" placeholder="开发" required>
+                </div>
+                <button type="submit" class="login-button">保存</button>
+                <p class="success-message" id="bookmarkSuccess">保存成功！</p>
+            </form>
         </div>
     </div>
 
     <script>
+        let currentEditIndex = -1;
+        let currentEditType = '';
+
         // 登录验证
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -298,7 +436,7 @@
                 document.getElementById('loginContainer').style.display = 'none';
                 document.getElementById('adminPanel').style.display = 'block';
                 localStorage.setItem('isLoggedIn', 'true');
-                loadData();
+                loadAllData();
             } else {
                 document.getElementById('errorMessage').style.display = 'block';
             }
@@ -315,61 +453,195 @@
         if (localStorage.getItem('isLoggedIn') === 'true') {
             document.getElementById('loginContainer').style.display = 'none';
             document.getElementById('adminPanel').style.display = 'block';
-            loadData();
+            loadAllData();
+        }
+
+        // 切换标签
+        function switchTab(tab) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tab + 'Tab').classList.add('active');
         }
 
         // 加载数据
-        function loadData() {
-            const data = JSON.parse(localStorage.getItem('siteData') || '{}');
-            if (data.heroTitle) document.getElementById('heroTitle').value = data.heroTitle;
-            if (data.heroSubtitle) document.getElementById('heroSubtitle').value = data.heroSubtitle;
-            if (data.aboutTitle) document.getElementById('aboutTitle').value = data.aboutTitle;
-            if (data.aboutText) document.getElementById('aboutText').value = data.aboutText;
-            if (data.stat1) document.getElementById('stat1').value = data.stat1;
-            if (data.stat2) document.getElementById('stat2').value = data.stat2;
-            if (data.stat3) document.getElementById('stat3').value = data.stat3;
-            if (data.stat4) document.getElementById('stat4').value = data.stat4;
-            if (data.footerText) document.getElementById('footerText').value = data.footerText;
+        function loadAllData() {
+            renderServices();
+            renderBookmarks();
         }
 
-        // 保存 Hero
-        function saveHero() {
-            const data = JSON.parse(localStorage.getItem('siteData') || '{}');
-            data.heroTitle = document.getElementById('heroTitle').value;
-            data.heroSubtitle = document.getElementById('heroSubtitle').value;
-            localStorage.setItem('siteData', JSON.stringify(data));
-            showSuccess('heroSuccess');
+        // 获取数据
+        function getData() {
+            return JSON.parse(localStorage.getItem('homepageData') || '{"services":[],"bookmarks":[]}');
         }
 
-        // 保存关于我们
-        function saveAbout() {
-            const data = JSON.parse(localStorage.getItem('siteData') || '{}');
-            data.aboutTitle = document.getElementById('aboutTitle').value;
-            data.aboutText = document.getElementById('aboutText').value;
-            localStorage.setItem('siteData', JSON.stringify(data));
-            showSuccess('aboutSuccess');
+        // 保存数据
+        function saveData(data) {
+            localStorage.setItem('homepageData', JSON.stringify(data));
         }
 
-        // 保存统计数据
-        function saveStats() {
-            const data = JSON.parse(localStorage.getItem('siteData') || '{}');
-            data.stat1 = document.getElementById('stat1').value;
-            data.stat2 = document.getElementById('stat2').value;
-            data.stat3 = document.getElementById('stat3').value;
-            data.stat4 = document.getElementById('stat4').value;
-            localStorage.setItem('siteData', JSON.stringify(data));
-            showSuccess('statsSuccess');
+        // 渲染服务列表
+        function renderServices() {
+            const data = getData();
+            const list = document.getElementById('servicesList');
+            list.innerHTML = data.services.map((service, index) => `
+                <div class="item-card">
+                    <div class="item-info">
+                        <h3><i class="fas ${service.icon}"></i> ${service.name}</h3>
+                        <p>${service.description}</p>
+                    </div>
+                    <div class="item-actions">
+                        <button class="btn btn-edit" onclick="editService(${index})">
+                            <i class="fas fa-edit"></i> 编辑
+                        </button>
+                        <button class="btn btn-delete" onclick="deleteService(${index})">
+                            <i class="fas fa-trash"></i> 删除
+                        </button>
+                    </div>
+                </div>
+            `).join('');
         }
 
-        // 保存 Footer
-        function saveFooter() {
-            const data = JSON.parse(localStorage.getItem('siteData') || '{}');
-            data.footerText = document.getElementById('footerText').value;
-            localStorage.setItem('siteData', JSON.stringify(data));
-            showSuccess('footerSuccess');
+        // 渲染书签列表
+        function renderBookmarks() {
+            const data = getData();
+            const list = document.getElementById('bookmarksList');
+            list.innerHTML = data.bookmarks.map((bookmark, index) => `
+                <div class="item-card">
+                    <div class="item-info">
+                        <h3><i class="fab ${bookmark.icon}"></i> ${bookmark.name}</h3>
+                        <p>${bookmark.url} - ${bookmark.category}</p>
+                    </div>
+                    <div class="item-actions">
+                        <button class="btn btn-edit" onclick="editBookmark(${index})">
+                            <i class="fas fa-edit"></i> 编辑
+                        </button>
+                        <button class="btn btn-delete" onclick="deleteBookmark(${index})">
+                            <i class="fas fa-trash"></i> 删除
+                        </button>
+                    </div>
+                </div>
+            `).join('');
         }
 
-        // 显示成功消息
+        // 服务模态框
+        function openServiceModal() {
+            currentEditIndex = -1;
+            document.getElementById('serviceModalTitle').textContent = '添加服务';
+            document.getElementById('serviceForm').reset();
+            document.getElementById('serviceModal').classList.add('active');
+        }
+
+        function closeServiceModal() {
+            document.getElementById('serviceModal').classList.remove('active');
+        }
+
+        function editService(index) {
+            currentEditIndex = index;
+            const data = getData();
+            const service = data.services[index];
+            
+            document.getElementById('serviceModalTitle').textContent = '编辑服务';
+            document.getElementById('serviceName').value = service.name;
+            document.getElementById('serviceIcon').value = service.icon;
+            document.getElementById('serviceDescription').value = service.description;
+            document.getElementById('serviceCpu').value = service.cpu;
+            document.getElementById('serviceMemory').value = service.memory;
+            document.getElementById('serviceModal').classList.add('active');
+        }
+
+        function deleteService(index) {
+            if (confirm('确定要删除这个服务吗？')) {
+                const data = getData();
+                data.services.splice(index, 1);
+                saveData(data);
+                renderServices();
+            }
+        }
+
+        document.getElementById('serviceForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const data = getData();
+            
+            const service = {
+                name: document.getElementById('serviceName').value,
+                icon: document.getElementById('serviceIcon').value,
+                description: document.getElementById('serviceDescription').value,
+                status: 'online',
+                cpu: document.getElementById('serviceCpu').value,
+                memory: document.getElementById('serviceMemory').value
+            };
+
+            if (currentEditIndex >= 0) {
+                data.services[currentEditIndex] = service;
+            } else {
+                data.services.push(service);
+            }
+
+            saveData(data);
+            renderServices();
+            showSuccess('serviceSuccess');
+            setTimeout(() => closeServiceModal(), 1000);
+        });
+
+        // 书签模态框
+        function openBookmarkModal() {
+            currentEditIndex = -1;
+            document.getElementById('bookmarkModalTitle').textContent = '添加书签';
+            document.getElementById('bookmarkForm').reset();
+            document.getElementById('bookmarkModal').classList.add('active');
+        }
+
+        function closeBookmarkModal() {
+            document.getElementById('bookmarkModal').classList.remove('active');
+        }
+
+        function editBookmark(index) {
+            currentEditIndex = index;
+            const data = getData();
+            const bookmark = data.bookmarks[index];
+            
+            document.getElementById('bookmarkModalTitle').textContent = '编辑书签';
+            document.getElementById('bookmarkName').value = bookmark.name;
+            document.getElementById('bookmarkIcon').value = bookmark.icon;
+            document.getElementById('bookmarkUrl').value = bookmark.url;
+            document.getElementById('bookmarkCategory').value = bookmark.category;
+            document.getElementById('bookmarkModal').classList.add('active');
+        }
+
+        function deleteBookmark(index) {
+            if (confirm('确定要删除这个书签吗？')) {
+                const data = getData();
+                data.bookmarks.splice(index, 1);
+                saveData(data);
+                renderBookmarks();
+            }
+        }
+
+        document.getElementById('bookmarkForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const data = getData();
+            
+            const bookmark = {
+                name: document.getElementById('bookmarkName').value,
+                icon: document.getElementById('bookmarkIcon').value,
+                url: document.getElementById('bookmarkUrl').value,
+                category: document.getElementById('bookmarkCategory').value
+            };
+
+            if (currentEditIndex >= 0) {
+                data.bookmarks[currentEditIndex] = bookmark;
+            } else {
+                data.bookmarks.push(bookmark);
+            }
+
+            saveData(data);
+            renderBookmarks();
+            showSuccess('bookmarkSuccess');
+            setTimeout(() => closeBookmarkModal(), 1000);
+        });
+
         function showSuccess(id) {
             const msg = document.getElementById(id);
             msg.style.display = 'block';
